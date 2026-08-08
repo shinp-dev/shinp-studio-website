@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'dist');
 const sourceFiles = [
   'index.html', 'styles.css', 'script.js', 'favicon.svg', 'robots.txt', 'sitemap.xml',
-  'assets/hero.png', 'assets/hero.webp', 'assets/spotlock-camera.png', 'assets/kaulist.png',
+  'assets/hero.png', 'assets/hero.webp', 'assets/og.png', 'assets/spotlock-camera.png', 'assets/kaulist.png',
   'fonts/IBMPlexSansJP-Regular.woff2', 'fonts/IBMPlexSansJP-Medium.woff2',
   'fonts/IBMPlexSansJP-SemiBold.woff2', 'fonts/OFL.txt', 'provenance/index.html'
 ];
