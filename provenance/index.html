@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f5" />
+    <title>Provenance — Shinp Studio</title>
+    <meta name="description" content="Shinp Studio 公開物の出自を確認するための情報です。" />
+    <link rel="canonical" href="https://shinp-studio.com/provenance/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .provenance-page { min-height: calc(100vh - 232px); padding-block: clamp(72px, 11vw, 140px); }
+      .provenance-heading { max-width: 720px; border-top: 1px solid var(--line); padding-top: 21px; }
+      .provenance-heading h1 { margin-bottom: 18px; font-size: clamp(2.2rem, 5vw, 4.2rem); }
+      .provenance-heading p { max-width: 35em; margin-bottom: 0; color: var(--muted); font-size: 14px; }
+      .provenance-list { max-width: 720px; margin: 58px 0 0; border-top: 1px solid var(--line); }
+      .provenance-row { display: grid; grid-template-columns: 210px 1fr; gap: 25px; padding: 17px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+      .provenance-row dt { color: var(--muted); }
+      .provenance-row dd { margin: 0; overflow-wrap: anywhere; }
+      .provenance-link { text-decoration: underline; text-underline-offset: 3px; }
+      @media (max-width: 600px) { .provenance-row { grid-template-columns: 1fr; gap: 5px; } }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へ移動</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="wordmark" href="/">Shinp Studio<span class="wordmark-dot">.</span></a>
+        <nav class="main-nav" aria-label="メインナビゲーション"><a href="/">Home</a><a href="/provenance/" aria-current="page">Provenance</a></nav>
+      </div>
+    </header>
+    <main id="main" class="provenance-page shell">
+      <div class="provenance-heading">
+        <p class="eyebrow">PUBLIC RECORD</p>
+        <h1>公開情報</h1>
+        <p>Shinp Studio の公開物について、ビルドと公開の出自を確認するための情報です。</p>
+      </div>
+      <dl class="provenance-list">
+        <div class="provenance-row"><dt>Publisher</dt><dd data-provenance="publisher">Shinp Studio</dd></div>
+        <div class="provenance-row"><dt>Published</dt><dd data-provenance="publishedAt">ビルド時に記録</dd></div>
+        <div class="provenance-row"><dt>Source revision</dt><dd data-provenance="commitSha">ビルド時に記録</dd></div>
+        <div class="provenance-row"><dt>Repository</dt><dd data-provenance="repository">設定されたリポジトリ</dd></div>
+        <div class="provenance-row"><dt>Build workflow</dt><dd data-provenance="workflow">設定されたワークフロー</dd></div>
+        <div class="provenance-row"><dt>Manifest SHA-256</dt><dd data-provenance="manifestSha256">ビルド時に記録</dd></div>
+        <div class="provenance-row"><dt>Build provenance / Attestation</dt><dd data-provenance="attestation">GitHub Actions の設定に応じて記録</dd></div>
+      </dl>
+      <p class="section-note">機械向けのファイル: <a class="provenance-link" href="/provenance/provenance.json">provenance.json</a> / <a class="provenance-link" href="/provenance/manifest.sha256">manifest.sha256</a></p>
+    </main>
+    <footer class="site-footer"><div class="shell footer-inner"><div><a class="wordmark footer-wordmark" href="/">Shinp Studio<span class="wordmark-dot">.</span></a><p class="copyright">© <span id="copyright-year">2026</span> Shinp Studio</p></div><nav class="footer-nav" aria-label="フッターナビゲーション"><a href="/">Home</a><a href="/provenance/">Provenance</a></nav></div></footer>
+    <script src="/script.js" defer></script>
+  </body>
+</html>

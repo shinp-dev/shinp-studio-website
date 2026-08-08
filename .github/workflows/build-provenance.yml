@@ -1,0 +1,36 @@
+name: Build and attest
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check source
+        run: npm run check
+      - name: Build website
+        run: npm run build
+      - name: Upload deploy artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shinp-studio-site
+          path: dist
+          if-no-files-found: error
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/**
