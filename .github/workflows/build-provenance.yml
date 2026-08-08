@@ -31,6 +31,7 @@ jobs:
           path: dist
           if-no-files-found: error
       - name: Attest build provenance
+        if: github.event_name == 'push'
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: dist/**

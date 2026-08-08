@@ -9,8 +9,18 @@
       .then((data) => {
         if (!data) return;
         provenanceFields.forEach((field) => {
-          const value = data[field.dataset.provenance];
-          if (value) field.textContent = value;
+          const key = field.dataset.provenance;
+          const value = data[key];
+          if (!value) return;
+          if (['repository', 'run', 'attestation'].includes(key) && /^https:\/\//.test(value)) {
+            const link = document.createElement('a');
+            link.className = 'provenance-link';
+            link.href = value;
+            link.textContent = value;
+            field.replaceChildren(link);
+            return;
+          }
+          field.textContent = value;
         });
       })
       .catch(() => {});
