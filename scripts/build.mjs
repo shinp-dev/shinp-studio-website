@@ -37,7 +37,8 @@ const provenance = {
   commitSha: env.GITHUB_SHA || '未設定',
   workflow: env.GITHUB_WORKFLOW || (env.GITHUB_ACTIONS ? 'GitHub Actions' : '未設定'),
   run: env.GITHUB_SERVER_URL && env.GITHUB_REPOSITORY && env.GITHUB_RUN_ID ? `${env.GITHUB_SERVER_URL}/${env.GITHUB_REPOSITORY}/actions/runs/${env.GITHUB_RUN_ID}` : '未設定',
-  publishedAt: env.PUBLISHED_AT || null,
+  releaseStartedAt: env.RELEASE_STARTED_AT || null,
+  publishedAt: null,
   manifestPath: '/provenance/manifest.sha256',
   manifestSha256: manifestHash,
   attestation: env.ATTESTATION_URL || null

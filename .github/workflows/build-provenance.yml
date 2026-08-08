@@ -1,46 +1,118 @@
-name: Build and attest
+name: Build, attest, and deploy
 
 on:
   push:
     branches: [main]
   pull_request:
-  workflow_dispatch:
-    inputs:
-      published_at:
-        description: 'Production publication time in ISO 8601 (UTC)'
-        required: true
-        type: string
 
-permissions:
-  contents: read
-  id-token: write
-  attestations: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'production' || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
 jobs:
   build:
+    name: Check and build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: Check source
         run: npm run check
+
+      - name: Record release preparation time
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: echo "RELEASE_STARTED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
+
       - name: Build website
         env:
-          PUBLISHED_AT: ${{ inputs.published_at }}
-          ATTESTATION_URL: ${{ github.event_name != 'pull_request' && format('https://github.com/{0}/attestations', github.repository) || '' }}
+          ATTESTATION_URL: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && format('https://github.com/{0}/attestations', github.repository) || '' }}
         run: npm run build
+
       - name: Upload deploy artifact
+        id: upload
         uses: actions/upload-artifact@v4
         with:
           name: shinp-studio-site
           path: dist
           if-no-files-found: error
-      - name: Attest build provenance
-        if: github.event_name != 'pull_request'
+          retention-days: 30
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://shinp-studio.com
+    permissions:
+      actions: read
+      attestations: write
+      contents: read
+      id-token: write
+    steps:
+      - name: Download deploy artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: shinp-studio-site
+          path: dist
+
+      - name: Verify artifact manifest
+        working-directory: dist
+        run: sha256sum --check provenance/manifest.sha256
+
+      - name: Attest downloaded deploy artifact
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: dist/**
+
+      - name: Validate deployment credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        shell: bash
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN"
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+
+      - name: Deploy exact artifact to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: >-
+          npx --yes wrangler@4.120.0 pages deploy dist
+          --project-name=shinp-studio
+          --branch=main
+          --commit-hash=${{ github.sha }}
+          --commit-message="Deploy ${{ github.sha }}"
+          --commit-dirty=false
+
+      - name: Verify custom domain and deployed provenance
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 8 --retry-delay 3 --retry-all-errors \
+            -H 'Cache-Control: no-cache' \
+            "https://shinp-studio.com/provenance/provenance.json?release=$EXPECTED_SHA" \
+            --output "$RUNNER_TEMP/provenance.json"
+          node --input-type=module -e "
+            import fs from 'node:fs';
+            const record = JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP + '/provenance.json', 'utf8'));
+            if (record.commitSha !== process.env.EXPECTED_SHA) {
+              throw new Error('Production provenance does not match the deployed commit.');
+            }
+            if (!record.releaseStartedAt || record.publishedAt !== null) {
+              throw new Error('Production provenance timestamp semantics are invalid.');
+            }
+          "
