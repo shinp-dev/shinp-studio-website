@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      published_at:
+        description: 'Production publication time in ISO 8601 (UTC)'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -23,6 +29,9 @@ jobs:
       - name: Check source
         run: npm run check
       - name: Build website
+        env:
+          PUBLISHED_AT: ${{ inputs.published_at }}
+          ATTESTATION_URL: ${{ github.event_name != 'pull_request' && format('https://github.com/{0}/attestations', github.repository) || '' }}
         run: npm run build
       - name: Upload deploy artifact
         uses: actions/upload-artifact@v4
@@ -31,7 +40,7 @@ jobs:
           path: dist
           if-no-files-found: error
       - name: Attest build provenance
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: dist/**

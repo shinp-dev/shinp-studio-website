@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f7f7f5" />
     <title>Shinp Studio — 身近な課題を、使えるプロダクトに。</title>
-    <meta name="description" content="Shinp Studioは、日常の中にある不便やアイデアを整理し、Web・Windows・モバイルで使えるプロダクトとして形にする個人開発スタジオです。" />
+    <meta name="description" content="日常の中にある不便やアイデアを見つめ、Web・Windows・モバイルで使えるプロダクトに仕立てる個人開発スタジオ。" />
     <link rel="canonical" href="https://shinp-studio.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ja_JP" />
@@ -17,102 +17,51 @@
     <meta name="twitter:title" content="Shinp Studio" />
     <meta name="twitter:description" content="身近な課題を、使えるプロダクトに。" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/IBMPlexSansJP-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/IBMPlexSansJP-Medium.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/IBMPlexSansJP-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">本文へ移動</a>
-
     <header class="site-header">
       <div class="shell header-inner">
         <a class="wordmark" href="/" aria-label="Shinp Studio ホーム">Shinp Studio<span class="wordmark-dot">.</span></a>
-        <nav class="main-nav" aria-label="メインナビゲーション">
-          <a href="#products">Products</a>
-          <a href="#about">About</a>
-        </nav>
+        <nav class="main-nav" aria-label="メインナビゲーション"><a href="#products">Products</a><a href="#about">About</a></nav>
       </div>
     </header>
-
     <main id="main">
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-media">
-          <picture>
-            <source srcset="/assets/hero.webp" type="image/webp" />
-            <img src="/assets/hero.png" alt="盤面を見つめながら碁石入れに手を伸ばす人物の線画" width="955" height="537" fetchpriority="high" decoding="async" />
-          </picture>
+          <picture><source srcset="/assets/hero.webp" type="image/webp" /><img src="/assets/hero.png" alt="画面を見つめながら確かめるように手を伸ばしている人物のモノクロ線画" width="955" height="537" fetchpriority="high" decoding="async" /></picture>
         </div>
         <div class="hero-copy">
           <p class="eyebrow">PERSONAL PRODUCT STUDIO</p>
           <h1 id="hero-title">身近な課題を、<br />使えるプロダクトに。</h1>
-          <p class="hero-description">日常の中にある不便やアイデアを整理し、Web・Windows・モバイルで実際に使えるアプリとして形にします。</p>
+          <p class="hero-description">日常の中にある不便やアイデアを見つめ、実際に使えるプロダクトとして形にします。</p>
           <a class="button button-primary" href="#products">プロダクトを見る<span aria-hidden="true">→</span></a>
         </div>
       </section>
-
       <section class="products section shell" id="products" aria-labelledby="products-title">
-        <div class="section-heading">
-          <p class="eyebrow">PRODUCTS</p>
-          <h2 id="products-title">プロダクト</h2>
-          <p>Shinp Studioから生まれたプロダクトです。</p>
-        </div>
+        <div class="section-heading"><p class="eyebrow">PRODUCTS</p><h2 id="products-title">プロダクト</h2><p>Shinp Studioから生まれたプロダクトです。</p></div>
         <div class="product-grid">
           <article class="product-card">
-            <div class="product-visual product-visual-spotlock" aria-hidden="true">
-              <span class="product-mark">SC</span>
-              <span class="visual-caption">SPOTLOCK<br />CAMERA</span>
-            </div>
-            <div class="product-content">
-              <p class="product-index">01</p>
-              <h3>SpotLock Camera</h3>
-              <p>詳しい情報は準備中です。</p>
-            </div>
+            <div class="product-visual product-visual-spotlock"><img src="/assets/spotlock-camera.png" alt="SpotLock Camera 公式アイコン" width="512" height="512" loading="lazy" decoding="async" /><span class="visual-caption">SPOTLOCK<br />CAMERA</span></div>
+            <div class="product-content"><p class="product-index">01</p><h3>SpotLock Camera</h3><p>オフラインでJPEG画像にECDSA署名を付与し、APP15へ署名情報を埋め込むAndroidカメラ。ブラウザで画像の整合性を検証できます。</p><a class="product-link" href="https://spotlock.shinp-studio.com/" target="_blank" rel="noopener noreferrer">公式サイトを見る<span aria-hidden="true">↗</span></a></div>
           </article>
           <article class="product-card">
-            <div class="product-visual product-visual-kaulist" aria-hidden="true">
-              <span class="product-mark">K</span>
-              <span class="visual-caption">KAULIST</span>
-            </div>
-            <div class="product-content">
-              <p class="product-index">02</p>
-              <h3>Kaulist</h3>
-              <p>詳しい情報は準備中です。</p>
-            </div>
+            <div class="product-visual product-visual-kaulist"><img src="/assets/kaulist.png" alt="KauList 公式アイコン" width="512" height="512" loading="lazy" decoding="async" /><span class="visual-caption">KAULIST</span></div>
+            <div class="product-content"><p class="product-index">02</p><h3>KauList</h3><p>写真付きの買い物リストを、複数人で共有できるWebアプリ。複数リスト、招待URL、owner/member権限に対応しています。</p><a class="product-link" href="https://kaulist.shinp-studio.com/" target="_blank" rel="noopener noreferrer">公式サイトを見る<span aria-hidden="true">↗</span></a></div>
           </article>
         </div>
       </section>
-
       <section class="about section shell" id="about" aria-labelledby="about-title">
         <div class="about-rule" aria-hidden="true"></div>
-        <div class="about-layout">
-          <div>
-            <p class="eyebrow">ABOUT SHINP STUDIO</p>
-            <h2 id="about-title">小さくつくり、<br />きちんと届ける。</h2>
-          </div>
-          <div class="about-copy">
-            <p>個人で企画・設計・開発・公開まで行っているプロダクトスタジオです。</p>
-            <p>考えたものを、使えるかたちへ。必要な人の手元に届くところまで、静かに進めています。</p>
-          </div>
-        </div>
+        <div class="about-layout"><div><p class="eyebrow">ABOUT SHINP STUDIO</p><h2 id="about-title">小さくつくり、<br />きちんと届ける。</h2></div><div class="about-copy"><p>個人で企画・設計・開発・公開まで行っているプロダクトスタジオです。</p><p>考えたものを、使えるかたちへ。必要な人の手元に届くところまで、静かに進めています。</p></div></div>
       </section>
-
-      <section class="closing shell" aria-label="サイト情報">
-        <p>Shinp Studio</p>
-        <span aria-hidden="true">—</span>
-        <p>身近な課題を、使えるプロダクトに。</p>
-      </section>
+      <section class="closing shell" aria-label="サイトメッセージ"><p>Shinp Studio</p><span aria-hidden="true">—</span><p>身近な課題を、使えるプロダクトに。</p></section>
     </main>
-
-    <footer class="site-footer">
-      <div class="shell footer-inner">
-        <div>
-          <a class="wordmark footer-wordmark" href="/">Shinp Studio<span class="wordmark-dot">.</span></a>
-          <p class="copyright">© <span id="copyright-year">2026</span> Shinp Studio</p>
-        </div>
-        <nav class="footer-nav" aria-label="フッターナビゲーション">
-          <a href="#products">Products</a>
-          <a href="/provenance/">Provenance</a>
-        </nav>
-      </div>
-    </footer>
+    <footer class="site-footer"><div class="shell footer-inner"><div><a class="wordmark footer-wordmark" href="/">Shinp Studio<span class="wordmark-dot">.</span></a><p class="copyright">© <span id="copyright-year">2026</span> Shinp Studio</p></div><nav class="footer-nav" aria-label="フッターナビゲーション"><a href="#products">Products</a><a href="/provenance/">Provenance</a></nav></div></footer>
     <script src="/script.js" defer></script>
   </body>
 </html>

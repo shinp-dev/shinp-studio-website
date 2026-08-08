@@ -5,7 +5,12 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'dist');
-const sourceFiles = ['index.html', 'styles.css', 'script.js', 'favicon.svg', 'robots.txt', 'sitemap.xml', 'assets/hero.png', 'assets/hero.webp', 'provenance/index.html'];
+const sourceFiles = [
+  'index.html', 'styles.css', 'script.js', 'favicon.svg', 'robots.txt', 'sitemap.xml',
+  'assets/hero.png', 'assets/hero.webp', 'assets/spotlock-camera.png', 'assets/kaulist.png',
+  'fonts/IBMPlexSansJP-Regular.woff2', 'fonts/IBMPlexSansJP-Medium.woff2',
+  'fonts/IBMPlexSansJP-SemiBold.woff2', 'fonts/OFL.txt', 'provenance/index.html'
+];
 const env = process.env;
 
 await fs.rm(out, { recursive: true, force: true });
