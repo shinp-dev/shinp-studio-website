@@ -88,6 +88,7 @@ h1 { max-width: 12em; margin-bottom: 30px; font-size: clamp(2.3rem, 3.6vw, 3.25r
 .product-visual-spotlock { background: #e6e6e1; }
 .product-visual-kaulist { background: #d6d6d1; }
 .product-visual-chanriva { background: #220405; }
+.product-visual-pc-renamer { background: #dedfdb; }
 .product-visual img { position: relative; z-index: 1; width: clamp(160px, 38%, 224px); height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 22%; box-shadow: 0 8px 20px rgba(23,23,23,.08); }
 .product-visual-spotlock img { transform: scale(1.05); }
 .visual-caption { position: absolute; right: 18px; bottom: 16px; color: #63635e; font-size: 9px; font-weight: 600; letter-spacing: .15em; line-height: 1.5; text-align: right; }
